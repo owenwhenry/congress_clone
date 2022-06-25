@@ -15,3 +15,9 @@ class MLStripper(HTMLParser):
 
     def get_data(self):
         return self.text.getvalue()
+
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()

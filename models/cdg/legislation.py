@@ -1,3 +1,7 @@
+from APIConnectors import cdgAPI
+from models.cdg import core
+
+
 class bill(cdgAPI):
     """
     Class representing a bill in the Congress.gov API. Available properties
@@ -42,8 +46,10 @@ class bill(cdgAPI):
         self.get_texts()
 
     def get_attribute(self, source_name, obj_dict_name):
-        obj = sub_list(source=self.data['bill'][source_name],
-                       obj_name=obj_dict_name)
+        obj = core.sub_list(
+            source=self.data['bill'][source_name],
+            obj_name=obj_dict_name
+            )
         self.data['bill'][source_name]['list'] = obj.list
         return obj
 
@@ -99,7 +105,7 @@ class bill(cdgAPI):
             latest = self._find_latest_summary(self.summaries)['text']
         else:
             None
-        latest_stripped = strip_tags(latest) if latest else None
+        latest_stripped = core.strip_tags(latest) if latest else None
         return latest_stripped
 
     def _find_latest_summary(self, summary_json):
@@ -150,8 +156,10 @@ class bill(cdgAPI):
     # Cosponsors
     def get_cosponsors(self):
         self._cosponsors = (
-            cosponsors_list(source=self.data['bill']['cosponsors'],
-                            obj_name='cosponsors')
+            core.cosponsors_list(
+                source=self.data['bill']['cosponsors'],
+                obj_name='cosponsors'
+                )
         )
         self.data['bill']['cosponsors']['list'] = self._cosponsors.list
 
@@ -186,8 +194,9 @@ class bill(cdgAPI):
     @property
     def texts(self):
         if not self._texts:
-            self._texts = sub_list(source=self.data['bill']['textVersions'],
-                                   obj_name='textVersions')
+            self._texts = core.sub_list(
+                source=self.data['bill']['textVersions'],
+                obj_name='textVersions')
             self.data['bill']['textVersions']['list'] = self._texts.list
         return self._texts.list
 

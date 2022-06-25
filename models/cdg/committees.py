@@ -1,3 +1,6 @@
+from APIConnectors import cdgAPI
+
+
 class committee(cdgAPI):
     def __init__(self, chamber=None, committee_id=None, url=None):
         if url is not None or (chamber is not None

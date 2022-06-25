@@ -1,5 +1,5 @@
 import unittest
-from sources.APIConnectors import cdgAPI, baseAPI, govInfoAPI
+from APIConnectors import cdgAPI, baseAPI, govInfoAPI
 
 
 class testBaseAPI(unittest.TestCase):
@@ -112,7 +112,7 @@ class testCDGAPIConnector(unittest.TestCase):
         This should return 6 pages of bills at 20 bills a page
         Total hjres for the 116th is 110
         """
-        target_url = 'https://api.data.gov/congress/v1/bill/116/hjres'
+        target_url = 'https://api.data.gov/congress/v2/bill/116/hjres'
         counter = 0
         for page in self.mixin.paginate(target_url):
             counter += 1
